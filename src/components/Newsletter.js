@@ -27,7 +27,7 @@ export const Newsletter = ({ status, message, onValidated }) => {
           <Row>
             <Col lg={12} md={6} xl={5}>
               <h3>Suscríbete a nuestro boletín de noticias y no te pierdas las últimas actualizaciones.</h3>
-              {status === 'sending' && <Alert>Enviando...</Alert>}
+              {status === 'sending' && <Alert>Enviado</Alert>}
               {status === 'error' && <Alert variant="danger">{message}</Alert>}
               {status === 'success' && <Alert variant="success">{message}</Alert>}
             </Col>
