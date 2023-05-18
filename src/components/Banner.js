@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
+
 import headerImg from "../assets/img/header-img.svg";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
+import { HashLink } from "react-router-hash-link";
+import {
+  BrowserRouter as Router
+} from "react-router-dom";
 
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -22,7 +27,7 @@ export const Banner = () => {
     return () => {
       clearInterval(ticker);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   const tick = () => {
@@ -53,6 +58,8 @@ export const Banner = () => {
   };
 
   return (
+    <Router>
+
     <section className="banner" id="inicio">
       <Container>
         <Row className="aligh-items-center">
@@ -64,7 +71,9 @@ export const Banner = () => {
                     isVisible ? "animate__animated animate__fadeIn" : ""
                   }
                 >
-                  <span className="tagline">Bienvenido a mi portafolio! ˆˆ!</span>
+                  <span className="tagline">
+                    Bienvenido a mi portafolio! ˆˆ!
+                  </span>
                   <h1>
                     {`Hola! Soy Ariel. Ingeniero en Sistemas de Información`}{" "}
                     <span
@@ -84,9 +93,11 @@ export const Banner = () => {
                     he tenido la oportunidad de trabajar en proyectos que me han
                     permitido aplicar y fortalecer mis habilidades técnicas.
                   </p>
-                  <button onClick={() => console.log("connect")}>
-                  Contáctame <ArrowRightCircle size={25} />
-                  </button>
+                  <HashLink to="#connect">
+                    <button>
+                    <span>Contáctame</span> <ArrowRightCircle size={25} />
+                    </button>
+                  </HashLink>
                 </div>
               )}
             </TrackVisibility>
@@ -107,5 +118,7 @@ export const Banner = () => {
         </Row>
       </Container>
     </section>
+    </Router>
+
   );
 };
