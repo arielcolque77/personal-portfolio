@@ -19,6 +19,7 @@ export const Contact = () => {
   const [buttonText, setButtonText] = useState("Enviar");
 
   const onFormUpdate = (category, value) => {
+    setError(false)
     setFormDetails({
       ...formDetails,
       [category]: value,
@@ -27,8 +28,30 @@ export const Contact = () => {
 
   const form = useRef();
 
+  const [error, setError] = useState(false);
+
   const sendEmail = (e) => {
     e.preventDefault();
+    const email = e.target.user_email.value;
+    const password = e.target.message.value;
+
+    const regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+    console.log(regexEmail.test(email));
+
+
+
+    if (email === "" || password === "") {
+      console.log("Los campos no pueden estar vacios");
+      setError(true)
+      return;
+    }
+    if (email !== "" && !regexEmail.test(email)) {
+      console.log("El correo es valido");
+      return;
+    }
+    else {
+      e.preventDefault();
     emailjs
       .sendForm(
         "service_ujk85zi",
@@ -45,6 +68,7 @@ export const Contact = () => {
         }
       );
       setButtonText("Enviado");
+    }
   };
 
   return (
@@ -97,7 +121,6 @@ export const Contact = () => {
                           }
                         />
                       </Col>
-
                       <Col size={12} className="px-1">
                         <textarea
                           name="message"
@@ -108,10 +131,13 @@ export const Contact = () => {
                             onFormUpdate("message", e.target.value)
                           }
                         ></textarea>
+                        { error && <Alert variant="danger">Los campos no pueden estar vacios</Alert>}
+
                         <button type="submit">
                           <span>{buttonText}</span>
                         </button>
                       </Col>
+
                     </Row>
                   </form>
                 </div>
